@@ -6,8 +6,57 @@
 }
 
 body {
-	background: var(--gray);
+	background: var(--red);
 	color: var(--orange);
+	font-size: large;
+}
+
+img {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+button {
+	width: 80%;
+	height: 20%;
+	margin-bottom: 2%;
+
+	background: var(--gray);
+	color: var(--white);
+	border: none;
+
+	cursor: pointer;
+}
+button:hover {
+	background: var(--orange);
+}
+
+.center-flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+}
+
+#puppy-grid {
+	display: grid;
+	grid-template-columns: 100% 100%;
+	grid-gap: 8%;
+
+	padding: 5%;
+}
+#puppy-grid > * {
+	padding: 2%;
+}
+
+section {
+	background: var(--white);
+	color: var(--gray);
+
+	box-shadow: 7px 10px 0px var(--gray);
 }
 
 a {
