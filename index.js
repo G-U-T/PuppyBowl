@@ -2,13 +2,26 @@ let currentPlayers = [];
 
 const puppyGrid = document.getElementById(`puppy-grid`);
 
-const constructCard = (player) => {
+const constructCard = (player, isMain) => {
 	const cardBase = document.createElement(`section`);
 	cardBase.classList.add(`center-flex`);
 	puppyGrid.appendChild(cardBase);
 
 	const cardLink = document.createElement(`button`);
 	cardLink.innerText = player.name;
+	if (isMain) {
+		cardBase.classList.add(`focused-card`);
+		cardLink.addEventListener(`click`, () => {
+			main();
+			render();
+		});
+	}
+	else {
+		cardLink.addEventListener(`click`, () => {
+			renderSpecificPlayerDetails(player);
+		});
+	}
+	
 	cardBase.appendChild(cardLink);
 
 	const image = document.createElement(`img`);
@@ -17,9 +30,17 @@ const constructCard = (player) => {
 };
 
 const render = () => {
+	puppyGrid.innerHTML = ``;
+
 	currentPlayers.forEach((player) => {
-		constructCard(player);
+		constructCard(player, false);
 	});
+};
+
+const renderSpecificPlayerDetails = (player) => {
+	puppyGrid.innerHTML = ``;
+
+	constructCard(player, true);
 };
 
 const getJSON = async () => {

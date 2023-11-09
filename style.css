@@ -52,6 +52,11 @@ button:hover {
 	padding: 2%;
 }
 
+.focused-card {
+	min-width: 250%;
+	min-height: 150%;
+}
+
 section {
 	background: var(--white);
 	color: var(--gray);
