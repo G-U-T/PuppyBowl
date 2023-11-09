@@ -2,6 +2,22 @@ let currentPlayers = [];
 
 const puppyGrid = document.getElementById(`puppy-grid`);
 
+const postPuppy = async (puppy) => {
+	const pup = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf/players`,
+	{
+		method: `POST`,
+		body: JSON.stringify({
+			name: puppy.name,
+			imageUrl: puppy.imageUrl,
+			status: puppy.status,
+			breed: puppy.breed,
+		}),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+};
+
 const constructCard = (player, isMain) => {
 	const cardBase = document.createElement(`section`);
 	cardBase.classList.add(`center-flex`);
@@ -12,6 +28,7 @@ const constructCard = (player, isMain) => {
 	if (isMain) {
 		cardBase.classList.add(`focused-card`);
 		cardLink.addEventListener(`click`, () => {
+			postPuppy(player);
 			main();
 			render();
 		});
