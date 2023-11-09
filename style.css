@@ -11,9 +11,19 @@ body {
 	font-size: large;
 }
 
+.dangerous {
+	font-size: larger;
+	background: var(--red);
+	color: var(--orange);
+}
+
 img {
 	max-width: 160px;
 	max-height: 200px;
+}
+
+input#url {
+	min-width: 600px;
 }
 
 button {
@@ -26,6 +36,7 @@ button {
 	border: none;
 
 	cursor: pointer;
+	font-size: large;
 }
 button:hover {
 	background: var(--orange);

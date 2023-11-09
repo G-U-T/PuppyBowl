@@ -1,9 +1,9 @@
 let currentPlayers = [];
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf/players`;
 
 const puppyGrid = document.getElementById(`puppy-grid`);
 
 const form = document.querySelector(`form`);
-
 const nameInput = document.querySelector(`[name='name']`);
 const imageInput = document.querySelector(`[name='image']`);
 const statusInput = document.querySelector(`[name='status']`);
@@ -26,7 +26,7 @@ form.addEventListener(`submit`, (event) => {
 });
 
 const postPuppy = async (puppy) => {
-	const pup = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf/players`,
+	const pup = await fetch(API_URL,
 	{
 		method: `POST`,
 		body: JSON.stringify({
@@ -44,13 +44,35 @@ const postPuppy = async (puppy) => {
 	main();
 };
 
+const obliteratePuppy = async (puppy) => {
+	const json = await getJSON();
+	currentPlayers = json.data.players;
+
+	let puppyID;
+	currentPlayers.forEach((player) => {
+		if (player.id === puppy.id) puppyID = player.id;
+	});
+
+	try {
+		await fetch(
+			API_URL + `/${puppyID}`,
+			{method: `DELETE`},
+		);
+	}
+	catch (error) {
+		console.log(`ERROR: ${error}`);
+	}
+
+	main();
+};
+
 const constructCard = (player, isMain) => {
 	const cardBase = document.createElement(`section`);
 	cardBase.classList.add(`center-flex`);
 	puppyGrid.appendChild(cardBase);
 
 	const cardLink = document.createElement(`button`);
-	cardLink.innerText = player.name;
+	cardLink.innerText = isMain ? `Back to puppy list`: player.name;
 	if (isMain) {
 		cardBase.classList.add(`focused-card`);
 		cardLink.addEventListener(`click`, () => {
@@ -70,13 +92,15 @@ const constructCard = (player, isMain) => {
 	cardBase.appendChild(image);
 
 	if (isMain) {
-		const breedLabel = document.createElement(`label`);
-		breedLabel.innerText = `Breed: ` + player.breed;
-		cardBase.appendChild(breedLabel);
-
-		const statusLabel = document.createElement(`label`);
-		statusLabel.innerText = `Status: ` + player.status;
-		cardBase.appendChild(statusLabel);
+		const puppyLabel = document.createElement(`label`);
+		puppyLabel.innerText = `
+		Name: ${player.name}\n
+		Breed: ${player.breed}\n
+		Status: ${player.status}\n
+		Team ID: ${player.teamId}\n
+		Cohort ID: ${player.cohortId}\n
+		`;
+		cardBase.appendChild(puppyLabel);
 
 		const dupeButton = document.createElement(`button`);
 		dupeButton.innerText = `Duplicate Puppy`;
@@ -84,6 +108,14 @@ const constructCard = (player, isMain) => {
 			postPuppy(player);
 		});
 		cardBase.appendChild(dupeButton);
+
+		const obliterateButton = document.createElement(`button`);
+		obliterateButton.innerText = `Destroy Puppy`;
+		obliterateButton.classList.add("dangerous");
+		obliterateButton.addEventListener(`click`, () => {
+			obliteratePuppy(player);
+		});
+		cardBase.appendChild(obliterateButton);
 	}
 };
 
@@ -102,15 +134,14 @@ const renderSpecificPlayerDetails = (player) => {
 };
 
 const getJSON = async () => {
-	const response = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf/players`);
+	const response = await fetch(API_URL);
 	const responseJSON = await response.json();
 	return responseJSON;
 };
 
 const main = async () => {
 	const json = await getJSON();
-	const players = json.data.players;
-	currentPlayers = players;
+	currentPlayers = json.data.players;
 	render();
 };
 
