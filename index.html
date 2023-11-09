@@ -9,6 +9,32 @@
 </head>
 <body>
 	<div class="center-flex">
+		<form>
+			<p>Create a puppy:</p>
+
+			<label for="name">Name:</label>
+			<input name="name" type="text" value="Spot"><br>
+
+			<label for="image">Image URL:</label>
+			<input name="image" type="text" value="https://i0.wp.com/cockapoo.me/wp-content/uploads/2018/08/red-miniature-cockapoo.jpg"><br>
+
+			<label for="status">Status:</label>
+			<input name="status" type="radio" checked value="bench">
+			<label for="status">Bench</label>
+			<input name="status" type="radio" value="field">
+			<label for="status">Field</label><br>
+
+			<label for="breed">Breed:</label>
+			<input name="breed" type="text" value="Poodle"><br>
+
+			<label for="team-id">Team ID:</label>
+			<input name="team-id" type="number" value="39"><br>
+
+			<label for="cohort-id">Cohort ID:</label>
+			<input name="cohort-id" type="number" value="20"><br>
+			
+			<input type="submit">
+		</form>
 		<div id="puppy-grid"></div>
 	</div>
 </body>

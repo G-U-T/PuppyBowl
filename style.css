@@ -7,19 +7,19 @@
 
 body {
 	background: var(--red);
-	color: var(--orange);
+	color: var(--white);
 	font-size: large;
 }
 
 img {
-	max-width: 200px;
+	max-width: 160px;
 	max-height: 200px;
 }
 
 button {
 	width: 80%;
 	height: 20%;
-	margin-bottom: 2%;
+	margin: 2%;
 
 	background: var(--gray);
 	color: var(--white);
@@ -43,13 +43,12 @@ button:hover {
 
 #puppy-grid {
 	display: grid;
-	grid-template-columns: 100% 100%;
-	grid-gap: 8%;
-
-	padding: 5%;
+	grid-template-columns: repeat(4, 170px);
+	grid-gap: 1.0%;
 }
 #puppy-grid > * {
 	padding: 2%;
+	margin: 10px;
 }
 
 .focused-card {
