@@ -1,0 +1,18 @@
+:root {
+	--white: #e1f1de;
+	--orange: #b97f75;
+	--red: #6a4b59;
+	--gray: #424851;
+}
+
+body {
+	background: var(--gray);
+	color: var(--orange);
+}
+
+a {
+	color: var(--white);
+}
+a:hover {
+	color: var(--orange);
+}
